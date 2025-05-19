@@ -67,8 +67,17 @@
             </div>
             <!-- 사업자 형태 -->
             <div>
-                <label for="businessType" class="block text-sm font-medium text-gray-700">사업자 형태 <span class="text-red-500">*</span></label>
-                <input type="text" id="businessType" name="entry.1848392224" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
+                <label class="block text-sm font-medium text-gray-700">사업자 형태 <span class="text-red-500">*</span></label>
+                <div class="mt-1">
+                    <label class="inline-flex items-center">
+                        <input type="radio" name="entry.1848392224" value="개인 사업자" required class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" aria-required="true">
+                        <span class="ml-2 text-sm text-gray-600">개인 사업자</span>
+                    </label>
+                    <label class="inline-flex items-center ml-6">
+                        <input type="radio" name="entry.1848392224" value="법인 사업자" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" aria-required="true">
+                        <span class="ml-2 text-sm text-gray-600">법인 사업자</span>
+                    </label>
+                </div>
             </div>
             <!-- 주주관계 -->
             <div>
