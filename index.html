@@ -253,8 +253,8 @@
                     return;
                 }
 
-                // 연락처 조합: 숫자만 포함 (예: 01012345678)
-                const phoneFormatted = phonePart1 + phonePart2 + phonePart3;
+                // 연락처 조합: 000-0000-0000 형식 (예: 010-2222-2222)
+                const phoneFormatted = `${phonePart1}-${phonePart2}-${phonePart3}`;
                 $('#phone').val(phoneFormatted);
 
                 // 기본 폼 제출 방지
