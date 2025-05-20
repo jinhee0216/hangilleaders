@@ -253,12 +253,16 @@
                     return;
                 }
 
-                // 연락처 조합: [ 000 ] - [ 0000 ] - [ 0000 ]
-                const phoneFormatted = `[ ${phonePart1} ] - [ ${phonePart2} ] - [ ${phonePart3} ]`;
+                // 연락처 조합: 숫자만 포함 (예: 01012345678)
+                const phoneFormatted = phonePart1 + phonePart2 + phonePart3;
                 $('#phone').val(phoneFormatted);
 
                 // 기본 폼 제출 방지
                 e.preventDefault();
+
+                // "신청 완료" 메시지 즉시 표시
+                $('#formContainer').hide();
+                $('#successMessage').show();
 
                 // iframe 동적 생성
                 const iframe = $('<iframe>', {
@@ -268,16 +272,7 @@
                 });
                 $('#iframeContainer').empty().append(iframe);
 
-                // 폼 제출 후 iframe 제거 및 메시지 표시
-                iframe.on('load', function() {
-                    setTimeout(function() {
-                        $('#iframeContainer').empty();
-                        $('#formContainer').hide();
-                        $('#successMessage').show();
-                    }, 20000); // 20초 후 iframe 제거 및 메시지 표시 (데이터 전송 완료 대기)
-                });
-
-                // 폼 제출
+                // 폼 제출 (데이터 전송)
                 $(this).attr('target', 'googleFormIframe');
                 this.submit(); // 폼 제출 실행
             });
