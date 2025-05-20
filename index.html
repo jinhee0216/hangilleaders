@@ -30,6 +30,11 @@
             display: flex;
             gap: 10px;
         }
+        .phone-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
@@ -55,10 +60,18 @@
                     <label for="birthDate" class="block text-sm font-medium text-gray-700">생년월일 <span class="text-red-500">*</span></label>
                     <input type="text" id="birthDate" name="entry.1381543198" required placeholder="예: 871220-1" pattern="[0-9]{6}-[1-4]" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
                 </div>
-                <!-- 연락처 -->
+                <!-- 연락처 (3칸으로 나누기) -->
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700">연락처 <span class="text-red-500">*</span></label>
-                    <input type="tel" id="phone" name="entry.1777400821" required pattern="[0-9]{10,11}" placeholder="예: 01012345678" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
+                    <label class="block text-sm font-medium text-gray-700">연락처 <span class="text-red-500">*</span></label>
+                    <div class="phone-inputs">
+                        <input type="text" id="phonePart1" required pattern="[0-9]{3}" maxlength="3" placeholder="010" class="mt-1 w-1/4 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
+                        <span>-</span>
+                        <input type="text" id="phonePart2" required pattern="[0-9]{4}" maxlength="4" placeholder="1234" class="mt-1 w-1/4 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
+                        <span>-</span>
+                        <input type="text" id="phonePart3" required pattern="[0-9]{4}" maxlength="4" placeholder="5678" class="mt-1 w-1/4 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
+                    </div>
+                    <!-- 구글 폼으로 전송할 최종 연락처 값 (숨김) -->
+                    <input type="hidden" id="phone" name="entry.1777400821">
                 </div>
                 <!-- 사업자 형태 -->
                 <div>
@@ -135,7 +148,7 @@
                 <!-- 직원수 -->
                 <div>
                     <label for="employeeCount" class="block text-sm font-medium text-gray-700">직원수 <span class="text-red-500">*</span></label>
-                    <input type="number" id="employeeCount" name="entry.520614711" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
+                    <input type="text" id="employeeCount" name="entry.520614711" required placeholder="예: 3명" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" aria-required="true">
                 </div>
                 <!-- NICE / KCB 신용점수 -->
                 <div>
@@ -218,12 +231,31 @@
                     e.preventDefault();
                     return;
                 }
-                const phone = $('#phone').val();
-                if (!/^\d{10,11}$/.test(phone)) {
-                    alert('연락처를 올바른 형식(예: 01012345678)으로 입력하세요.');
+
+                // 연락처 3칸 유효성 검사 및 조합
+                const phonePart1 = $('#phonePart1').val();
+                const phonePart2 = $('#phonePart2').val();
+                const phonePart3 = $('#phonePart3').val();
+
+                if (!/^[0-9]{3}$/.test(phonePart1)) {
+                    alert('연락처 첫 번째 부분은 3자리 숫자여야 합니다. (예: 010)');
                     e.preventDefault();
                     return;
                 }
+                if (!/^[0-9]{4}$/.test(phonePart2)) {
+                    alert('연락처 두 번째 부분은 4자리 숫자여야 합니다. (예: 1234)');
+                    e.preventDefault();
+                    return;
+                }
+                if (!/^[0-9]{4}$/.test(phonePart3)) {
+                    alert('연락처 세 번째 부분은 4자리 숫자여야 합니다. (예: 5678)');
+                    e.preventDefault();
+                    return;
+                }
+
+                // 연락처 조합: [ 000 ] - [ 0000 ] - [ 0000 ]
+                const phoneFormatted = `[ ${phonePart1} ] - [ ${phonePart2} ] - [ ${phonePart3} ]`;
+                $('#phone').val(phoneFormatted);
 
                 // 기본 폼 제출 방지
                 e.preventDefault();
@@ -242,7 +274,7 @@
                         $('#iframeContainer').empty();
                         $('#formContainer').hide();
                         $('#successMessage').show();
-                    }, 5000); // 5초 후 iframe 제거 및 메시지 표시 (데이터 전송 완료 대기)
+                    }, 20000); // 20초 후 iframe 제거 및 메시지 표시 (데이터 전송 완료 대기)
                 });
 
                 // 폼 제출
