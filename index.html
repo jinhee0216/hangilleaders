@@ -257,33 +257,23 @@
 <textarea class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500" id="requiredAmount" name="entry.44687952" rows="4"></textarea>
 </div>
 
-<div class="space-y-4">
-    <div class="text-sm text-gray-600 text-center">
-        <a class="text-indigo-600 hover:underline" href="https://edu.sbiz.or.kr/edu/main/main.do" target="_blank">지식배움터 바로가기</a> ㅣ
-        <a class="text-indigo-600 hover:underline" href="#" onclick="openModal('jisikModal')">지식배움터 제출사유</a>
-    </div>
-
-    <div class="flex gap-4">
-      <div class="flex-1">
-        <label class="block text-sm font-medium text-gray-700" for="jisikId">지식배움터 ID</label>
-        <input
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          id="jisikId"
-          name="entry.653096036"
-          type="text"
-        />
-      </div>
-      <div class="flex-1">
-        <label class="block text-sm font-medium text-gray-700" for="jisikPw">지식배움터 PW</label>
-        <input
-          class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-          id="jisikPw"
-          name="entry.936679548"
-          type="password"
-        />
-      </div>
-    </div>
-</div>
+ <!-- 지식배움터 및 소상공인정책자금 관련 필드 (하단으로 이동) -->
+                <div class="space-y-4">
+                    <div class="text-sm text-gray-600 text-center">
+                        <div class="mb-2">
+                            <a href="https://edu.sbiz.or.kr/edu/main/main.do" target="_blank" class="text-indigo-600 hover:underline">지식배움터 바로가기</a> ㅣ 
+                            <a href="#" class="text-indigo-600 hover:underline" onclick="openModal('jisikModal')">지식배움터 제출사유</a>
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <div>
+                                <label for="jisikId" class="block text-sm font-medium text-gray-700">지식배움터 ID</label>
+                                <input type="text" id="jisikId" name="entry.653096036" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label for="jisikPw" class="block text-sm font-medium text-gray-700">지식배움터 PW</label>
+                                <input type="password" id="jisikPw" name="entry.936679548" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                        </div>
                         <div class="mb-2">
                             <a href="https://ols.semas.or.kr/ols/man/SMAN010M/page.do" target="_blank" class="text-indigo-600 hover:underline">소상공인 정책자금 바로가기</a> ㅣ 
                             <a href="#" class="text-indigo-600 hover:underline" onclick="openModal('policyFundModal')">소상공인 정책자금 제출사유</a>
